@@ -197,6 +197,28 @@ CDAP IRC Channel: [#cdap on irc.freenode.net](http://webchat.freenode.net?channe
 
 CDAP Users on Slack: [cdap-users team](https://cdap-users.herokuapp.com)
 
+# Wrangler Custom Directive: AggregateStatsDirective
+
+This project introduces a custom directive named `aggregate-stats` for the CDAP Wrangler framework.
+
+## 🧠 What it Does
+
+The directive aggregates values across all rows for:
+- Byte-size column (e.g. `"10MB"`, `"2GB"`)
+- Time-duration column (e.g. `"5min"`, `"3h"`)
+
+It adds two new columns to each row:
+- `totalBytes`: total size in bytes
+- `totalDuration`: total time in milliseconds
+
+## 🔧 Parameters
+
+```text
+aggregate-stats :byteInputCol :timeInputCol :byteOutputCol :timeOutputCol
+
+``example
+aggregate-stats :size :duration :totalBytes :totalDuration
+
 
 ## License and Trademarks
 

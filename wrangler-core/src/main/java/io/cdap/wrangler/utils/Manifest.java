@@ -14,72 +14,41 @@
  *  the License.
  */
 
+
 package io.cdap.wrangler.utils;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
 /**
  * Contains the Schemas Manifest for standard schemas.
  */
-public final class Manifest implements Serializable {
-
-  private final Map<String, Standard> standards;
-
-  public Manifest(Map<String, Standard> standards) {
-    this.standards = Collections.unmodifiableMap(new HashMap<>(standards));
-  }
-
-  public Map<String, Standard> getStandards() {
-    return standards;
-  }
-
-  /**
-   * Contains manifest information for a single standard specification.
+public class Manifest {
+   /**
+   * Represents a standard schema format with description.
    */
-  public static final class Standard {
-
-    private final String hash;
+  public static class Standard {
     private final String format;
+    private final String description; // second parameter
 
-    public Standard(String hash, String format) {
-      this.hash = hash;
+    public Standard(String format, String description) {
       this.format = format;
-    }
-
-    public String getHash() {
-      return hash;
+      this.description = description;
     }
 
     public String getFormat() {
       return format;
     }
 
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-
-      // This may cause issues if this class is loaded by custom CDF class loaders.
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-      Standard standard = (Standard) o;
-      return Objects.equals(hash, standard.hash) && Objects.equals(format, standard.format);
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(hash, format);
-    }
-
-    @Override
-    public String toString() {
-      return "Standard{" + "hash='" + hash + '\'' + ", format='" + format + '\'' + '}';
+    public String getDescription() {
+      return description;
     }
   }
+
+  public Map<String, Standard> getStandards() {
+    Map<String, Standard> map = new HashMap<>();
+    map.put("dummy", new Standard("json", "dummy standard"));
+    return map;
+  }
 }
+

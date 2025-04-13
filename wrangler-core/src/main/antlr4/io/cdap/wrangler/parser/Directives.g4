@@ -140,8 +140,14 @@ numberRange
  ;
 
 value
- : String | Number | Column | Bool
- ;
+  : byteSize
+  | timeDuration
+  | Number
+  | Column
+  | Bool
+  | String
+  ;
+
 
 ecommand
  : '!' Identifier
@@ -194,6 +200,9 @@ stringList
 identifierList
  : Identifier (',' Identifier)*
  ;
+
+byteSize : BYTE_SIZE ;
+timeDuration : TIME_DURATION ;
 
 
 /*
@@ -311,3 +320,15 @@ fragment Int
 fragment Digit
  : [0-9]
  ;
+
+ // Byte and Time Units
+BYTE_UNIT : 'B' | 'KB' | 'MB' | 'GB' | 'TB' ;
+TIME_UNIT : 'ms' | 's' | 'sec' | 'm' | 'min' | 'h' ;
+
+// Token types
+BYTE_SIZE : DIGIT+ ('.' DIGIT+)? BYTE_UNIT ;
+TIME_DURATION : DIGIT+ ('.' DIGIT+)? TIME_UNIT ;
+
+// Helper
+fragment DIGIT : [0-9] ;
+
